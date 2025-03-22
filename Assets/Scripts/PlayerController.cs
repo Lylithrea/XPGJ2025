@@ -1,7 +1,8 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerControl : MonoBehaviour
+public class PlayerControl : Singleton<PlayerControl>
 {
     [SerializeField] private float walkSpeed = 10;
     [SerializeField] private float dashSpeed = 50;
@@ -9,9 +10,10 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private float dashDurationTime = 0.25f;
     [SerializeField] private float turnSmoothing = 30;
 
+    [DoNotSerialize] public Vector3 faceDirection;
+    
     private float dashTimer;
     private bool canDash = true;
-    private Vector3 faceDirection;
 
     private CharacterController controller;
 
@@ -43,7 +45,7 @@ public class PlayerControl : MonoBehaviour
             return;
         }
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             DashTrigger();
             return;
