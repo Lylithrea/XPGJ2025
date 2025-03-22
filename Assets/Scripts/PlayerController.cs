@@ -2,16 +2,17 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerControl : Singleton<PlayerControl>
+public class PlayerManager : Singleton<PlayerManager>
 {
+    [SerializeField] private int health;
     [SerializeField] private float walkSpeed = 10;
     [SerializeField] private float dashSpeed = 50;
     [SerializeField] private float dashCooldownTime = 1;
     [SerializeField] private float dashDurationTime = 0.25f;
     [SerializeField] private float turnSmoothing = 30;
 
-    [DoNotSerialize] public Vector3 faceDirection;
-    
+    public Vector3 faceDirection;
+
     private float dashTimer;
     private bool canDash = true;
 
@@ -29,18 +30,18 @@ public class PlayerControl : Singleton<PlayerControl>
             if (dashTimer < dashDurationTime)
             {
                 DashFrame();
-                
+
                 dashTimer += Time.deltaTime;
                 return;
             }
-            
+
             if (dashTimer >= dashDurationTime + dashCooldownTime)
             {
                 canDash = true;
             }
-            
+
             Walk();
-            
+
             dashTimer += Time.deltaTime;
             return;
         }
@@ -50,14 +51,14 @@ public class PlayerControl : Singleton<PlayerControl>
             DashTrigger();
             return;
         }
-        
+
         Walk();
     }
 
     private void DashTrigger()
     {
         DashFrame();
-        
+
         canDash = false;
         dashTimer = 0;
     }
@@ -78,8 +79,14 @@ public class PlayerControl : Singleton<PlayerControl>
 
         if (move != Vector3.zero)
         {
-            gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, Quaternion.LookRotation(move), turnSmoothing * Time.deltaTime);
+            gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation,
+                Quaternion.LookRotation(move), turnSmoothing * Time.deltaTime);
             faceDirection = move;
         }
+    }
+    
+    public void Damage(int amount)
+    {
+        health -= amount;
     }
 }
