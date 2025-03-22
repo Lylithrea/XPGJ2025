@@ -1,16 +1,14 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class LockRoom : MonoBehaviour
+public class Room_Lock : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    
+    public RoomManager roomManager;
+    public void OnTriggerEnter(Collider other)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Debug.Log("Entering new Room!");
+        roomManager.StartRoom();
     }
 }
