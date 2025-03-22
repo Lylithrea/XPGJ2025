@@ -7,9 +7,11 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private float dashSpeed = 50;
     [SerializeField] private float dashCooldownTime = 1;
     [SerializeField] private float dashDurationTime = 0.25f;
+    [SerializeField] private float turnSmoothing = 30;
 
     private float dashTimer;
     private bool canDash = true;
+    private Vector3 faceDirection;
 
     private CharacterController controller;
 
@@ -60,7 +62,7 @@ public class PlayerControl : MonoBehaviour
 
     private void DashFrame()
     {
-        var move = gameObject.transform.forward.normalized;
+        var move = faceDirection;
         controller.Move(move * (dashSpeed * Time.deltaTime));
     }
 
@@ -74,7 +76,8 @@ public class PlayerControl : MonoBehaviour
 
         if (move != Vector3.zero)
         {
-            gameObject.transform.rotation = Quaternion.LookRotation(move);
+            gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, Quaternion.LookRotation(move), turnSmoothing * Time.deltaTime);
+            faceDirection = move;
         }
     }
 }
