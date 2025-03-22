@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class AttackManager : MonoBehaviour
+public class AttackManager : Singleton<AttackManager>
 {
     [SerializeField] private GameObject explosionPrefab;
     [SerializeField] private GameObject projectilePrefab;
@@ -83,6 +83,12 @@ public class AttackManager : MonoBehaviour
         {
             suicideTimer -= Time.deltaTime;
         }
+
+        var ui = UIManager.Instance;
+        ui.SetExplodeCooldown((explodeCooldown - explodeTimer) / explodeCooldown);
+        ui.SetShootCooldown((shootCooldown - shootTimer) / shootCooldown);
+        ui.SetSplashCooldown((splashCooldown - splashTimer) / splashCooldown);
+        ui.SetClickCooldown((clickCooldown - clickTimer) / clickCooldown);
     }
 
     private void Explosion()
