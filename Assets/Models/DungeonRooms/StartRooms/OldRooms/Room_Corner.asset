@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7896b8d00a53f46488eedb2d9a194a6d, type: 3}
   m_Name: Room_Corner
   m_EditorClassIdentifier: 
-  totalRarity: 8
-  percentage: 12.5
-  rarity: 1
+  totalRarity: 11
+  percentage: 27.27
+  rarity: 3
   tile: {fileID: 4217058536259479399, guid: 8f2bbab98ea6eec4b8884be73ac242e0, type: 3}
   sideA: 4
   sideB: 5

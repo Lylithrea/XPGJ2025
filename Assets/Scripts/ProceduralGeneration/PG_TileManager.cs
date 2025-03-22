@@ -28,6 +28,7 @@ public class PG_TileManager : MonoBehaviour
     public bool isStartTile = false;
 
     public List<PG_AdvTile> possibleTiles = new List<PG_AdvTile>();
+    public List<PG_AdvTile> possibleEndTiles = new List<PG_AdvTile>();
     public Dictionary<PG_AdvTile, int> possibleRotTiles = new Dictionary<PG_AdvTile, int>();
     public Dictionary<int, PG_AdvTile> randomTiles = new Dictionary<int, PG_AdvTile>();
 
@@ -108,6 +109,7 @@ public class PG_TileManager : MonoBehaviour
             SetAllPossibleTiles();
             return;
         }
+
         for (int i = 0; i < possibleTiles.Count; i++)
         {
             //find all possible starting points
@@ -122,12 +124,21 @@ public class PG_TileManager : MonoBehaviour
                 TileTypes tileSide = TileTypes.None;
                 switch (j)
                 {
-                    case 0: tileSide = possibleTiles[i].GetSide(0); break;
-                    case 1: tileSide = possibleTiles[i].GetSide(1); break;
-                    case 2: tileSide = possibleTiles[i].GetSide(2); break;
-                    case 3: tileSide = possibleTiles[i].GetSide(3); break;
+                    case 0:
+                        tileSide = possibleTiles[i].GetSide(0);
+                        break;
+                    case 1:
+                        tileSide = possibleTiles[i].GetSide(1);
+                        break;
+                    case 2:
+                        tileSide = possibleTiles[i].GetSide(2);
+                        break;
+                    case 3:
+                        tileSide = possibleTiles[i].GetSide(3);
+                        break;
                     default: break;
                 }
+
                 if (tileSide == tileTypes[0] || tileTypes[0] == TileTypes.None || tileSide == TileTypes.None)
                 {
 
@@ -153,12 +164,21 @@ public class PG_TileManager : MonoBehaviour
                     TileTypes tileSide = TileTypes.None;
                     switch (start)
                     {
-                        case 0: tileSide = possibleTiles[i].GetSide(0); break;
-                        case 1: tileSide = possibleTiles[i].GetSide(1); break;
-                        case 2: tileSide = possibleTiles[i].GetSide(2); break;
-                        case 3: tileSide = possibleTiles[i].GetSide(3); break;
+                        case 0:
+                            tileSide = possibleTiles[i].GetSide(0);
+                            break;
+                        case 1:
+                            tileSide = possibleTiles[i].GetSide(1);
+                            break;
+                        case 2:
+                            tileSide = possibleTiles[i].GetSide(2);
+                            break;
+                        case 3:
+                            tileSide = possibleTiles[i].GetSide(3);
+                            break;
                         default: break;
                     }
+
                     if (tileTypes[k] == tileSide || tileTypes[k] == TileTypes.None || tileSide == TileTypes.None)
                     {
                         combo++;
@@ -169,11 +189,12 @@ public class PG_TileManager : MonoBehaviour
                         break;
                     }
                 }
+
                 if (combo == tileTypes.Count)
                 {
                     int tileRot = startingPoints[s];
                     int connections = 0;
-                    for(int k = 0; k < 4; k++)
+                    for (int k = 0; k < 4; k++)
                     {
                         TileTypes type = possibleTiles[i].GetSide(k);
                         if (type == TileTypes.Solid)
@@ -181,9 +202,17 @@ public class PG_TileManager : MonoBehaviour
                             connections++;
                         }
                     }
+
                     tileRotations.Add(new TileRotations(possibleTiles[i], tileRot, connections));
                 }
             }
+        }
+
+        //==============================================================================
+        if (tileRotations.Count == 0)
+        {
+            AddEndTiles(tileTypes);
+            
         }
     }
 
@@ -276,12 +305,23 @@ public class PG_TileManager : MonoBehaviour
 
 
 
-    public void SetTile()
+    public bool SetTile()
     {
         entropy = 0;
+        
+        Debug.Log("Tile count: " + tileRotations.Count);
+        
         //int randomTile = Random.Range(0, tileRotations.Count);
         TileRotations tile = GetTileBasedOnRarity();
 
+        Debug.Log("Tile: " + tile);
+        if (tile == null)
+        {
+            Debug.Log("No room found for this location");
+            PG_AdvGenerator.instance.impossibleRoom = true;
+            return false;
+        }
+        
         var newTile = tile.tile;
         this.tile = newTile;
         this.rotation = tile.rotation;
@@ -293,6 +333,7 @@ public class PG_TileManager : MonoBehaviour
         GameObject tileObj = Instantiate(newTile.GetTile(), this.transform);
 
         tileObj.transform.Rotate(new Vector3(0, tile.rotation * -90, 0));
+        return true;
     }
 
     public float getDistanceInfluence(TileRotations tile)
@@ -316,10 +357,129 @@ public class PG_TileManager : MonoBehaviour
         }
     }
 
+
+    public void AddEndTiles(List<TileTypes> tileTypes)
+    {
+        tileRotations.Clear();
+        
+        //add end tiles to it
+        for (int i = 0; i < possibleEndTiles.Count; i++)
+        {
+            //find all possible starting points
+            //starting points are points where tiletypea is the same as somewhere in the possible tile
+            //then check if the following tiles are also correct
+
+            List<int> startingPoints = new List<int>();
+
+            //loop through all 4 sides of the cube
+            for (int j = 0; j < tileTypes.Count; j++)
+            {
+                TileTypes tileSide = TileTypes.None;
+                switch (j)
+                {
+                    case 0:
+                        tileSide = possibleEndTiles[i].GetSide(0);
+                        break;
+                    case 1:
+                        tileSide = possibleEndTiles[i].GetSide(1);
+                        break;
+                    case 2:
+                        tileSide = possibleEndTiles[i].GetSide(2);
+                        break;
+                    case 3:
+                        tileSide = possibleEndTiles[i].GetSide(3);
+                        break;
+                    default: break;
+                }
+
+                if (tileSide == tileTypes[0] || tileTypes[0] == TileTypes.None || tileSide == TileTypes.None)
+                {
+
+                    startingPoints.Add(j);
+                }
+            }
+
+            //for each starting point see if we can fully match it
+            //starting points contain which side of the current block we checking
+            for (int s = 0; s < startingPoints.Count; s++)
+            {
+                int combo = 1;
+                int start = startingPoints[s];
+
+                //we know the first one is correct so thats why we start on 1
+                for (int k = 1; k < tileTypes.Count; k++)
+                {
+                    //we know the first side is correct
+                    //so we go immediatly to the next one
+                    start++;
+                    if (start > 3) start = 0;
+
+                    TileTypes tileSide = TileTypes.None;
+                    switch (start)
+                    {
+                        case 0:
+                            tileSide = possibleEndTiles[i].GetSide(0);
+                            break;
+                        case 1:
+                            tileSide = possibleEndTiles[i].GetSide(1);
+                            break;
+                        case 2:
+                            tileSide = possibleEndTiles[i].GetSide(2);
+                            break;
+                        case 3:
+                            tileSide = possibleEndTiles[i].GetSide(3);
+                            break;
+                        default: break;
+                    }
+
+                    if (tileTypes[k] == tileSide || tileTypes[k] == TileTypes.None || tileSide == TileTypes.None)
+                    {
+                        combo++;
+                    }
+                    else
+                    {
+                        combo = 0;
+                        break;
+                    }
+                }
+
+                if (combo == tileTypes.Count)
+                {
+                    int tileRot = startingPoints[s];
+                    int connections = 0;
+                    for (int k = 0; k < 4; k++)
+                    {
+                        TileTypes type = possibleEndTiles[i].GetSide(k);
+                        if (type == TileTypes.Solid)
+                        {
+                            connections++;
+                        }
+                    }
+
+                    tileRotations.Add(new TileRotations(possibleEndTiles[i], tileRot, connections));
+                }
+            }
+        }
+    }
+    
     public TileRotations GetTileBasedOnRarity()
     {
         float totalRarity = 0;
 
+        if ((distanceFromStart / PG_AdvGenerator.instance.maxLength) > 1)
+        {
+            AddEndTiles(GetNeightbouringTileTypes());
+            if (tileRotations.Count <= 0)
+            {
+                PG_AdvGenerator.instance.impossibleRoom = true;
+                return null;
+            }
+            Debug.Log("Generated end room! At location: (" + col + "," + row + ")");
+            PG_AdvGenerator.instance.generatedEndRoom = true;
+            return tileRotations[Random.Range(0, tileRotations.Count)];
+        }
+        
+        
         foreach (TileRotations tile in tileRotations)
         {
             float distanceInfluence = getDistanceInfluence(tile);

@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7896b8d00a53f46488eedb2d9a194a6d, type: 3}
-  m_Name: Room_T
+  m_Name: Room_Start
   m_EditorClassIdentifier: 
-  totalRarity: 12
-  percentage: 16.67
-  rarity: 2
-  tile: {fileID: 5182122150332829248, guid: 87f17406b5075354abfbd77bd07dfdeb, type: 3}
-  sideA: 4
-  sideB: 4
+  totalRarity: 1
+  percentage: 100
+  rarity: 1
+  tile: {fileID: 8503521774864240929, guid: d961f1265e3a4e945b1dc9a0550000f8, type: 3}
+  sideA: 5
+  sideB: 5
   sideC: 5
   sideD: 4

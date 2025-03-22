@@ -15,7 +15,7 @@ MonoBehaviour:
   totalRarity: 1
   percentage: 100
   rarity: 1
-  tile: {fileID: 7804059136687526847, guid: 1eceb1f7f9e3dcc46b61a6f2a09413f0, type: 3}
+  tile: {fileID: 8488822471454312759, guid: cd0196bbeb7adc845a7f51bf4a882896, type: 3}
   sideA: 5
   sideB: 5
   sideC: 5

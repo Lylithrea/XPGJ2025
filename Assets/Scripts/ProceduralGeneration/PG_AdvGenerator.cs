@@ -180,6 +180,11 @@ public class PG_AdvGenerator : MonoBehaviour
         {
             tile.GetComponent<PG_TileManager>().possibleTiles.Add(tile2);
         }
+        
+        foreach (PG_AdvTile endTile in endTiles)
+        {
+            tile.GetComponent<PG_TileManager>().possibleEndTiles.Add(endTile);
+        }
 
         tile.transform.position = new Vector3(col * RoomSize, 0, row* RoomSize);
     }
@@ -196,6 +201,11 @@ public class PG_AdvGenerator : MonoBehaviour
         foreach (PG_AdvTile tile2 in allTiles)
         {
             tile.GetComponent<PG_TileManager>().possibleTiles.Add(tile2);
+        }
+        
+        foreach (PG_AdvTile endTile in endTiles)
+        {
+            tile.GetComponent<PG_TileManager>().possibleEndTiles.Add(endTile);
         }
 
         tile.transform.position = new Vector3(col* RoomSize, 0, row* RoomSize);
@@ -227,7 +237,43 @@ public class PG_AdvGenerator : MonoBehaviour
         }
     }
 
-    private void NewGenNextStep()
+    public bool generatedEndRoom = false;
+    public bool impossibleRoom = false;
+    public bool finishedDungeonGenerating = false;
+    public int generatedRooms = 0;
+    
+    public bool GenerateFullDungeon(int minRooms, int maxRooms)
+    {
+        generatedEndRoom = false;
+        impossibleRoom = false;
+        finishedDungeonGenerating = false;
+        generatedRooms = 0;
+        Debug.Log("<color=darkGreen>[Generating Dungeon]</color> Generating dungeon... Generated End Room: " + generatedEndRoom + ", Generated Impossible room: " + impossibleRoom + ", Finished Generating: " + finishedDungeonGenerating + ", Generated Rooms: " + generatedRooms);
+        RemoveTiles();
+        for (int i = 0; i < 50; i++)
+        {
+            NewGenNextStep();
+            if (finishedDungeonGenerating)
+            {
+                break;
+            }
+        }
+
+        if (!generatedEndRoom || impossibleRoom)
+        {
+            return false;
+        }
+
+        if (minRooms > generatedRooms || generatedRooms > maxRooms)
+        {
+            return false;
+        }
+        return true;
+    }
+
+
+    
+    public void NewGenNextStep()
     {
         //newGeneratedTiles contains all generated tiles, so if its 0, none has spawned yet.
         if (newGeneratedTiles.Count <= 0)
@@ -254,9 +300,19 @@ public class PG_AdvGenerator : MonoBehaviour
         {
             Debug.Log("Creating new tile!");
 
+            if (lowestEntropyTiles.Count <= 0)
+            {
+                finishedDungeonGenerating = true;
+                return;
+            }
+            
             int randomTile = Random.Range(0, lowestEntropyTiles.Count);
 
-            lowestEntropyTiles[randomTile].GetComponent<PG_TileManager>().SetTile();
+            if (!lowestEntropyTiles[randomTile].GetComponent<PG_TileManager>().SetTile())
+            {
+                finishedDungeonGenerating = true;
+                return;
+            }
 
             GenerateNeighbouringTiles(lowestEntropyTiles[randomTile]);
             List<GameObject> result = SetConnectedToStart(lowestEntropyTiles[randomTile]);
@@ -267,7 +323,7 @@ public class PG_AdvGenerator : MonoBehaviour
         }
         //if we do already have generated tiles, we look at the lowest entropy.
         //Generate the lowest entropy tile, and then generate the 4 around it if they havent been generated yet, if they have, update those tiles instead.
-
+        generatedRooms++;
         SortNewTiles();
     }
 
