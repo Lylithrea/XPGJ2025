@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerManager : Singleton<PlayerManager>
 {
-    [SerializeField] private int health;
+    [SerializeField] private int health = 5;
     [SerializeField] private float walkSpeed = 10;
     [SerializeField] private float dashSpeed = 50;
     [SerializeField] private float dashCooldownTime = 1;
@@ -21,6 +21,7 @@ public class PlayerManager : Singleton<PlayerManager>
     private void Start()
     {
         controller = GetComponent<CharacterController>();
+        UIManager.Instance.SetHealth(health);
     }
 
     private void Update()
@@ -88,5 +89,6 @@ public class PlayerManager : Singleton<PlayerManager>
     public void Damage(int amount)
     {
         health -= amount;
+        UIManager.Instance.SetHealth(health);
     }
 }

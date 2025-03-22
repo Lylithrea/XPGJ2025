@@ -7,6 +7,8 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private Image shootCooldownImage;
     [SerializeField] private Image splashCooldownImage;
     [SerializeField] private Image clickCooldownImage;
+    
+    [SerializeField] private Image[] healthImages;
 
     public void SetExplodeCooldown(float value)
     {
@@ -26,5 +28,13 @@ public class UIManager : Singleton<UIManager>
     public void SetClickCooldown(float value)
     {
         clickCooldownImage.fillAmount = value;
+    }
+    
+    public void SetHealth(int value)
+    {
+        for (int i = 0; i < healthImages.Length; i++)
+        {
+            healthImages[i].enabled = i < value;
+        }
     }
 }
