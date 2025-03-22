@@ -392,8 +392,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2106425199}
-  - component: {fileID: 2106425198}
   - component: {fileID: 2106425200}
+  - component: {fileID: 2106425201}
   m_Layer: 0
   m_Name: StartOnPlay
   m_TagString: Untagged
@@ -401,37 +401,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2106425198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2106425197}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionTag: 
-  EventReference:
-    Guid:
-      Data1: -1624014366
-      Data2: 1321589726
-      Data3: -21391224
-      Data4: -375092524
-    Path: event:/Background music
-  Event: 
-  EventPlayTrigger: 1
-  EventStopTrigger: 0
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  NonRigidbodyVelocity: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
 --- !u!4 &2106425199
 Transform:
   m_ObjectHideFlags: 0
@@ -459,10 +428,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4bfb72d56aa74642b7d9a97e6718d20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fmodMusicPlayer: {fileID: 2106425201}
+  flute: 0
+  Organ_Base: 0
+--- !u!114 &2106425201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2106425197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4333c66c398fa04fac1af4a6b4a9f96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fmodEvent:
+    Guid:
+      Data1: 1076971444
+      Data2: 1079389753
+      Data3: 1697739918
+      Data4: 1165637385
+    Path: event:/Music
+  musicKicked:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1599866665}
   - {fileID: 1436468979}
+  - {fileID: 1599866665}
   - {fileID: 2106425199}
