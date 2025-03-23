@@ -109,6 +109,7 @@ public class PlayerManager : Singleton<PlayerManager>
         
         var instrumentObj = Instantiate(pickupable.instrumentPrefab, transform);
         var instrument = instrumentObj.GetComponent<Instrument>();
+        instrument.type = pickupable.type;
         MusicTester.instance.ChangeInstrument(pickupable.type, true);
         Destroy(other.gameObject);
         if (instrument != null)

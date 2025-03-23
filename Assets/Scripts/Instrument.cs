@@ -3,6 +3,7 @@ using UnityEngine;
 public class Instrument : MonoBehaviour
 {
     [SerializeField] protected float cooldown = 1; 
+    [SerializeField] public InstrumentType type;
     
     protected float timer;
     

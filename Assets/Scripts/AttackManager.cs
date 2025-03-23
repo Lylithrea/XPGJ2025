@@ -55,6 +55,6 @@ public class AttackManager : Singleton<AttackManager>
     public void PickupInstrument(Instrument instrument)
     {
         instruments.Add(instrument);
-        UIManager.Instance.RegisterInstrument();
+        UIManager.Instance.RegisterInstrument(instrument.type);
     }
 }
