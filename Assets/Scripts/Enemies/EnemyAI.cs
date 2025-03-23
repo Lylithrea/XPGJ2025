@@ -65,6 +65,10 @@ public class EnemyAI : MonoBehaviour
 
     private void ChasePlayer()
     {
+        if (!m_Agent.isOnNavMesh)
+        {
+            return;
+        }
         float distance = Vector3.Distance(transform.position, player.transform.position);
 
         if (distance <= m_AttackRange)
