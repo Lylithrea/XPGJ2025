@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -8,7 +9,8 @@ public class AttackManager : Singleton<AttackManager>
     public List<Instrument> instruments;
     
     private Camera cam;
-    
+    [SerializeField] private CinemachineCamera CineMachineCamera;
+
     private readonly Func<bool>[] triggers =
     {
         () => Input.GetKeyDown(KeyCode.Q),
@@ -29,7 +31,7 @@ public class AttackManager : Singleton<AttackManager>
         if (triggers[4]())
         {
             MusicTester.instance.EndSequence();
-            ULT.Instance.StartUlt();
+            ULT.Instance.StartUlt(CineMachineCamera);
             return;
         }
         var ui = UIManager.Instance;

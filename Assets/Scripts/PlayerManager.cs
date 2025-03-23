@@ -1,4 +1,5 @@
 using System;
+using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ public class PlayerManager : Singleton<PlayerManager>
     [SerializeField] private float dashCooldownTime = 1;
     [SerializeField] private float dashDurationTime = 0.25f;
     [SerializeField] private float turnSmoothing = 30;
+    
 
     public Animator playerAnimator;
 

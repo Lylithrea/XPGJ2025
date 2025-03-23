@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -39,15 +40,23 @@ public class ULT : MonoBehaviour
 
     }
 
-
-
-    public void StartUlt()
+    // Update is called once per frame
+    void Update()
     {
-        UltRoutine();
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    UltRoutine();
+        //}
     }
 
-    async Task UltRoutine()
+    public void StartUlt(CinemachineCamera cam)
     {
+        UltRoutine(cam);
+    }
+
+    async Task UltRoutine(CinemachineCamera cam)
+    {
+        cam.Lens.FieldOfView = 50;
         vfx.enabled = true;
         //ultsound.Play();
         vfx.Play();
@@ -61,8 +70,10 @@ public class ULT : MonoBehaviour
         await Task.Delay((int)(volumeDuration * 1000));
 
         volume.weight = 0;
+        cam.Lens.FieldOfView = 25;
 
         await Task.Delay(4000);
+
         while (crackInstance.transform.localScale.x > 0.01f)
         {
             crackInstance.transform.localScale *= 0.99f;
