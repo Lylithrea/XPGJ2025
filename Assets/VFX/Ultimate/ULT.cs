@@ -9,7 +9,7 @@ using UnityEngine.VFX;
 public class ULT : MonoBehaviour
 {
     [SerializeField] private VisualEffect vfx;
-    
+
     [SerializeField] private GameObject cracks;
 
     [SerializeField] private AudioSource ultsound;
@@ -21,13 +21,13 @@ public class ULT : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             UltRoutine();
         }
@@ -54,7 +54,7 @@ public class ULT : MonoBehaviour
         {
             crackInstance.transform.localScale *= 0.99f;
         }
-        Destroy(crackInstance); 
+        Destroy(crackInstance);
     }
 
     async Task BlendInVolume()
