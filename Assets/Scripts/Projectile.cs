@@ -11,9 +11,15 @@ public class Projectile : MonoBehaviour
     {
         transform.position += direction * (speed * Time.deltaTime);
     }
-
+    
     private void OnCollisionEnter(Collision other)
     {
+        if (other.gameObject.tag == "Enemy")
+        {
+            other.gameObject.GetComponent<EnemyAI>().TakeDamage(1);
+        }
+        
+        
         Instantiate(explosionPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }

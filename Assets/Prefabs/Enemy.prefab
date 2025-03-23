@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3085611134599402685}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,6 +110,7 @@ MonoBehaviour:
   m_AttackRange: 2
   m_Agent: {fileID: 3085611134599402685}
   m_Animator: {fileID: 6648654141086215266}
+  health: 1
 --- !u!136 &1033681068134975859
 CapsuleCollider:
   m_ObjectHideFlags: 0

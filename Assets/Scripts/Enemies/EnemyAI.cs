@@ -31,6 +31,8 @@ public class EnemyAI : MonoBehaviour
 
     private float attackTimer = 0;
 
+    public int health = 1;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -98,6 +100,15 @@ public class EnemyAI : MonoBehaviour
         {
             State = AiState.Aggro;
             m_Agent.isStopped = false;
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            Destroy(this.gameObject);
         }
     }
 }
