@@ -394,6 +394,7 @@ GameObject:
   - component: {fileID: 2106425199}
   - component: {fileID: 2106425200}
   - component: {fileID: 2106425201}
+  - component: {fileID: 2106425202}
   m_Layer: 0
   m_Name: StartOnPlay
   m_TagString: Untagged
@@ -429,6 +430,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fmodMusicPlayer: {fileID: 2106425201}
+  endSequenceSound: {fileID: 2106425202}
+  gameContinuesAfter: 13
   flute: 0
   Organ_Base: 0
 --- !u!114 &2106425201
@@ -449,10 +452,29 @@ MonoBehaviour:
       Data2: 1079389753
       Data3: 1697739918
       Data4: 1165637385
-    Path: event:/Music
+    Path: event:/Player/Stinger
   musicKicked:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2106425202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2106425197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50aa8e57a1d9fc4448ea0592864f53f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fmodEvent:
+    Guid:
+      Data1: 470784377
+      Data2: 1275340734
+      Data3: -1300399444
+      Data4: 1547279094
+    Path: event:/Player/Ultimate
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using System;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Rendering;
 
 public class FmodMusicPlayer : MonoBehaviour {
     #region FMOD stuff
@@ -56,9 +57,24 @@ public class FmodMusicPlayer : MonoBehaviour {
     public void ChangeParameter(string parameter, int newValue) => 
         musicInstance.setParameterByName(parameter, newValue);
 
+    public void SetSoundVolume(float volume) =>
+        musicInstance.setVolume(volume);
+
     public bool OnBeat(float sensitivity) {
         float currentTime = Time.time;
         return currentTime >= (nextBeatTime - sensitivity) && currentTime <= (nextBeatTime + sensitivity);
+    }
+
+    public void ResetParameters() {
+        if (!musicInstance.isValid()) return;
+
+        musicInstance.getDescription(out EventDescription eventDescription);
+        eventDescription.getParameterDescriptionCount(out int parameterCount);
+
+        for (int i = 0; i < parameterCount; i++) {
+            eventDescription.getParameterDescriptionByIndex(i, out PARAMETER_DESCRIPTION paramDesc);
+            musicInstance.setParameterByName(paramDesc.name, paramDesc.defaultvalue);
+        }
     }
 
     private void OnDestroy() {
@@ -68,9 +84,9 @@ public class FmodMusicPlayer : MonoBehaviour {
         timelineHandle.Free();
     }
 
-    [AOT.MonoPInvokeCallback(typeof(FMOD.Studio.EVENT_CALLBACK))]
-    private static FMOD.RESULT BeatEventCallback(FMOD.Studio.EVENT_CALLBACK_TYPE type, IntPtr instancePtr, IntPtr parameterPtr) {
-        FMOD.Studio.EventInstance instance = new FMOD.Studio.EventInstance(instancePtr);
+    [AOT.MonoPInvokeCallback(typeof(EVENT_CALLBACK))]
+    private static FMOD.RESULT BeatEventCallback(EVENT_CALLBACK_TYPE type, IntPtr instancePtr, IntPtr parameterPtr) {
+        FMOD.Studio.EventInstance instance = new EventInstance(instancePtr);
 
         IntPtr timelineInfoPtr;
         FMOD.RESULT result = instance.getUserData(out timelineInfoPtr);
@@ -84,8 +100,8 @@ public class FmodMusicPlayer : MonoBehaviour {
             TimelineInfo timelineInfo = (TimelineInfo)timelineHandle.Target;
 
             switch (type) {
-                case FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT: {
-                        var parameter = (FMOD.Studio.TIMELINE_BEAT_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(FMOD.Studio.TIMELINE_BEAT_PROPERTIES));
+                case EVENT_CALLBACK_TYPE.TIMELINE_BEAT: {
+                        var parameter = (TIMELINE_BEAT_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(TIMELINE_BEAT_PROPERTIES));
                         timelineInfo.tempo = parameter.tempo;
                         timelineInfo.currentMusicBeat = parameter.beat;
                         timelineInfo.timesignaturelower = parameter.timesignaturelower;
@@ -94,8 +110,8 @@ public class FmodMusicPlayer : MonoBehaviour {
                         timelineInfo.position = parameter.position;
                     }
                     break;
-                case FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER: {
-                        var parameter = (FMOD.Studio.TIMELINE_MARKER_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(FMOD.Studio.TIMELINE_MARKER_PROPERTIES));
+                case EVENT_CALLBACK_TYPE.TIMELINE_MARKER: {
+                        var parameter = (TIMELINE_MARKER_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(TIMELINE_MARKER_PROPERTIES));
                         timelineInfo.lastMarker = parameter.name;
                     }
                     break;
