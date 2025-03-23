@@ -1,10 +1,16 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using FMODUnity;
+using static UnityEditor.Profiling.RawFrameDataView;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerManager : Singleton<PlayerManager>
 {
+    [SerializeField] private FmodMusicPlayer gameMusic;
+    [SerializeField] private float beatSensativity = 0.5f;
+    [SerializeField] private EventReference failedBeatCheck;
+
     [SerializeField] private int health = 5;
     [SerializeField] private float walkSpeed = 10;
     [SerializeField] private float dashSpeed = 50;
@@ -21,6 +27,13 @@ public class PlayerManager : Singleton<PlayerManager>
 
     private void Start()
     {
+        if (gameMusic == null) {
+            Debug.LogWarning("No Game Music found");
+        }
+        if (failedBeatCheck.IsNull) {
+            Debug.LogWarning("No Failed Beat Check found");
+        }
+
         controller = GetComponent<CharacterController>();
         UIManager.Instance.SetHealth(health);
     }
@@ -50,6 +63,11 @@ public class PlayerManager : Singleton<PlayerManager>
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            if (gameMusic.OnBeat(beatSensativity)) {
+                RuntimeManager.PlayOneShot(failedBeatCheck);
+                return;
+            }
+
             DashTrigger();
             return;
         }

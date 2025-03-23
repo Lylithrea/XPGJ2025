@@ -1,3 +1,4 @@
+using FMODUnity;
 using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -6,7 +7,12 @@ using UnityEngine;
 public class AttackManager : Singleton<AttackManager>
 {
     public List<Instrument> instruments;
-    
+
+    [SerializeField] private FmodMusicPlayer gameMusic;
+    [SerializeField] private float beatSensativity = 0.5f;
+    [SerializeField] private EventReference failedBeatCheck;
+
+
     private Camera cam;
     
     private readonly Func<bool>[] triggers =
@@ -19,6 +25,12 @@ public class AttackManager : Singleton<AttackManager>
 
     void Start()
     {
+        if (gameMusic == null) {
+            Debug.LogWarning("No Game Music found");
+        }
+        if (failedBeatCheck.IsNull) {
+            Debug.LogWarning("No Failed Beat Check found");
+        }
         cam = Camera.main;
     }
 
@@ -31,6 +43,10 @@ public class AttackManager : Singleton<AttackManager>
             if (IsSlotAvailable(i)
                 && triggers[i]())
             {
+                if (gameMusic.OnBeat(beatSensativity)) {
+                    RuntimeManager.PlayOneShot(failedBeatCheck);
+                    return;
+                }
                 instruments[i].Use();
             }
 
