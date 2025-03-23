@@ -1,25 +1,21 @@
 using System;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AttackManager : Singleton<AttackManager>
 {
-    [SerializeField] private GameObject explosionPrefab;
-    [SerializeField] private GameObject projectilePrefab;
-    [SerializeField] private GameObject projectileEmitter;
-
-    [SerializeField] private float explodeCooldown = 1;
-    [SerializeField] private float shootCooldown = 1;
-    [SerializeField] private float splashCooldown = 1;
-    [SerializeField] private float clickCooldown = 1;
-    [SerializeField] private float suicideCooldown = 1;
-
-    private float explodeTimer;
-    private float shootTimer;
-    private float splashTimer;
-    private float clickTimer;
-    private float suicideTimer;
-
+    public List<Instrument> instruments;
+    
     private Camera cam;
+    
+    private readonly Func<bool>[] triggers =
+    {
+        () => Input.GetKeyDown(KeyCode.Q),
+        () => Input.GetKeyDown(KeyCode.E),
+        () => Input.GetKeyDown(KeyCode.R),
+        () => Input.GetMouseButtonDown(1)
+    };
 
     void Start()
     {
@@ -29,110 +25,36 @@ public class AttackManager : Singleton<AttackManager>
     // Update is called once per frame
     void Update()
     {
-        if (explodeTimer <= 0
-            && Input.GetKeyDown(KeyCode.Q))
-        {
-            Explosion();
-            explodeTimer = explodeCooldown;
-        }
-        else
-        {
-            explodeTimer -= Time.deltaTime;
-        }
-
-        if (shootTimer <= 0
-            && Input.GetKeyDown(KeyCode.E))
-        {
-            Shoot();
-            shootTimer = shootCooldown;
-        }
-        else
-        {
-            shootTimer -= Time.deltaTime;
-        }
-
-        if (splashTimer <= 0
-            && Input.GetKeyDown(KeyCode.R))
-        {
-            Splash();
-            splashTimer = splashCooldown;
-        }
-        else
-        {
-            splashTimer -= Time.deltaTime;
-        }
-
-        if (clickTimer <= 0
-            && Input.GetMouseButtonDown(1))
-        {
-            Explosion();
-            clickTimer = clickCooldown;
-        }
-        else
-        {
-            clickTimer -= Time.deltaTime;
-        }
-
-        if (suicideTimer <= 0
-            && Input.GetKeyDown(KeyCode.G))
-        {
-            Suicide();
-            suicideTimer = suicideCooldown;
-        }
-        else
-        {
-            suicideTimer -= Time.deltaTime;
-        }
-
         var ui = UIManager.Instance;
-        ui.SetExplodeCooldown((explodeCooldown - explodeTimer) / explodeCooldown);
-        ui.SetShootCooldown((shootCooldown - shootTimer) / shootCooldown);
-        ui.SetSplashCooldown((splashCooldown - splashTimer) / splashCooldown);
-        ui.SetClickCooldown((clickCooldown - clickTimer) / clickCooldown);
-    }
-
-    private void Explosion()
-    {
-        if (!cam)
+        for (var i = 0; i < instruments.Count; i++)
         {
-            return;
-        }
+            if (IsSlotAvailable(i)
+                && triggers[i]())
+            {
+                instruments[i].Use();
+            }
 
-        var ray = cam.ScreenPointToRay(Input.mousePosition);
-        if (!Physics.Raycast(ray, out var hit, float.PositiveInfinity, 1 << 6, QueryTriggerInteraction.Ignore))
-        {
-            return;
+            if (instruments.Count > i)
+            {
+                ui.SetCooldown(i, instruments[i].GetCooldownT());
+            }
         }
-
-        var explosion = Instantiate(explosionPrefab);
-        explosion.transform.position = hit.point;
+    }
+    
+    private bool IsSlotAvailable(int index)
+    {
+        return instruments.Count > index
+            && instruments[index].IsReady();
     }
 
-
-    private void Suicide()
+    public bool IsFull()
     {
-        Splash();
+        return instruments.Count >= 4;
     }
 
-    private void Splash()
+    public void PickupInstrument(Instrument instrument)
     {
-        Instantiate(explosionPrefab, PlayerManager.Instance.transform);
-    }
-
-    private void Shoot()
-    {
-        var ray = cam.ScreenPointToRay(Input.mousePosition);
-        if (!Physics.Raycast(ray, out var hit, float.PositiveInfinity, 1 << 9, QueryTriggerInteraction.Ignore))
-        {
-            return;
-        }
-
-        var projectileDir = hit.point - PlayerManager.Instance.transform.position;
-        projectileDir.y = 0;
-        projectileDir.Normalize();
-
-        var projectile = Instantiate(projectilePrefab, PlayerManager.Instance.transform.position + projectileDir,
-            Quaternion.identity);
-        projectile.GetComponent<Projectile>().direction = projectileDir.normalized;
+        instruments.Add(instrument);
+        UIManager.Instance.RegisterInstrument();
     }
 }
