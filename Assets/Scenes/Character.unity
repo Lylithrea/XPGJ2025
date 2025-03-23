@@ -3548,10 +3548,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 499529470223515445, guid: a8f6bdb2213237940b56789da97fcf9a, type: 3}
-      propertyPath: instrumentPrefab
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 4711768120830995787, guid: a8f6bdb2213237940b56789da97fcf9a, type: 3}
       propertyPath: m_Name
       value: Explosion pickup
