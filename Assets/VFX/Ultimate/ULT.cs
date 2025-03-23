@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,6 +19,20 @@ public class ULT : MonoBehaviour
 
     public float volumeDuration = 1.5f;
 
+    public static ULT Instance;
+
+    public void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -33,10 +48,15 @@ public class ULT : MonoBehaviour
         }
     }
 
+    public void StartUlt()
+    {
+        UltRoutine();
+    }
+
     async Task UltRoutine()
     {
         vfx.enabled = true;
-        ultsound.Play();
+        //ultsound.Play();
         vfx.Play();
         await Task.Delay(7000);
 

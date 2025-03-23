@@ -29,6 +29,7 @@ public class AttackManager : Singleton<AttackManager>
         if (triggers[4]())
         {
             MusicTester.instance.EndSequence();
+            ULT.Instance.StartUlt();
             return;
         }
         var ui = UIManager.Instance;
