@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -85,7 +86,31 @@ public class PlayerManager : Singleton<PlayerManager>
             faceDirection = move;
         }
     }
-    
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!other.isTrigger)
+        {
+            return;
+        }
+
+        if (!other.gameObject.TryGetComponent<Pickupable>(out var pickupable))
+        {
+            return;
+        }
+        
+        if (AttackManager.Instance.IsFull())
+        {
+            return;
+        }
+        
+        var instrumentObj = Instantiate(pickupable.instrumentPrefab, transform);
+        var instrument = instrumentObj.GetComponent<Instrument>();
+        Destroy(other.gameObject);
+        
+        AttackManager.Instance.PickupInstrument(instrument);
+    }
+
     public void Damage(int amount)
     {
         health -= amount;

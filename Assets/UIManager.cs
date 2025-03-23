@@ -3,36 +3,29 @@ using UnityEngine.UI;
 
 public class UIManager : Singleton<UIManager>
 {
-    [SerializeField] private Image explodeCooldownImage;    
-    [SerializeField] private Image shootCooldownImage;
-    [SerializeField] private Image splashCooldownImage;
-    [SerializeField] private Image clickCooldownImage;
-    
+    [SerializeField] private Image[] cooldownImages;    
     [SerializeField] private Image[] healthImages;
 
-    public void SetExplodeCooldown(float value)
+    private int instrumentCount;
+    
+    public void RegisterInstrument()
     {
-        explodeCooldownImage.fillAmount = value;
+        cooldownImages[instrumentCount++].gameObject.SetActive(true);
     }
     
-    public void SetShootCooldown(float value)
+    public void UnregisterInstrument()
     {
-        shootCooldownImage.fillAmount = value;
+        cooldownImages[--instrumentCount].gameObject.SetActive(false);
     }
-    
-    public void SetSplashCooldown(float value)
+
+    public void SetCooldown(int index, float value)
     {
-        splashCooldownImage.fillAmount = value;
-    }
-    
-    public void SetClickCooldown(float value)
-    {
-        clickCooldownImage.fillAmount = value;
+        cooldownImages[index].fillAmount = value;
     }
     
     public void SetHealth(int value)
     {
-        for (int i = 0; i < healthImages.Length; i++)
+        for (var i = 0; i < healthImages.Length; i++)
         {
             healthImages[i].enabled = i < value;
         }
