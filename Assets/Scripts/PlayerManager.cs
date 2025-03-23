@@ -91,4 +91,13 @@ public class PlayerManager : Singleton<PlayerManager>
         health -= amount;
         UIManager.Instance.SetHealth(health);
     }
+
+    public void ResetPosition()
+    {
+        controller.enabled = false;
+        controller.transform.position = new Vector3(0, 1.25f, 0);
+        controller.enabled = true;
+    }
+    
+    
 }

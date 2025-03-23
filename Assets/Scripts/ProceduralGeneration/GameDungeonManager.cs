@@ -1,3 +1,4 @@
+using System;
 using NaughtyAttributes;
 using UnityEngine;
 
@@ -12,7 +13,29 @@ public class GameDungeonManager : MonoBehaviour
     public bool generatedDungeon = false;
     private int maxGenerationCount = 50;
     private int currentGenerationCount = 0;
-    
+
+    public GameObject LoadingScreen;
+
+    public static GameDungeonManager Instance;
+    public GameObject player;
+
+    public void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
+
+    public void Start()
+    {
+        NextDungeon();
+    }
+
     [Button]
     public void GenerateDungeon()
     {
@@ -39,6 +62,15 @@ public class GameDungeonManager : MonoBehaviour
         Debug.Log("<color=Green>[DungeonGenerator]</color> Took " + currentGenerationCount + " generation times to generate a valid dungeon.");
 
         
+    }
+
+    public void NextDungeon()
+    {
+        //LoadingScreen.gameObject.SetActive(true);
+        GenerateDungeon();
+        //player.transform.position = new Vector3(0, 1.25f, 0);
+        PlayerManager.Instance.ResetPosition();
+        //LoadingScreen.gameObject.SetActive(false);
     }
     
 }
