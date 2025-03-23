@@ -1,5 +1,6 @@
 using FMOD.Studio;
 using FMODUnity;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InstrumentManager : MonoBehaviour {
@@ -20,6 +21,30 @@ public class InstrumentManager : MonoBehaviour {
         }
     }
 
+
+    public void ChangeInstrument(InstrumentType type, bool active)
+    {
+        Debug.Log("Changing Instrument "  + type.ToString() + " to: " + active);
+        switch (type)
+        {
+            case InstrumentType.flute:
+                fmodMusicPlayer.ChangeParameter("Flute", active ? 1 : 0);
+                break;
+            case InstrumentType.cowbell:
+                fmodMusicPlayer.ChangeParameter("CowBell", active ? 1 : 0);
+                break;
+            case InstrumentType.chordstab:
+                fmodMusicPlayer.ChangeParameter("Stab", active ? 1 : 0);
+                break;
+            case InstrumentType.organbass:
+                fmodMusicPlayer.ChangeParameter("OranBass", active ? 1 : 0);
+                break;
+            default:
+                Debug.LogWarning("Unknown instrument type");
+                break;
+        }
+    }
+    
     private void Update() {
         if (flute) {
             fmodMusicPlayer.ChangeParameter("Flute", 1);

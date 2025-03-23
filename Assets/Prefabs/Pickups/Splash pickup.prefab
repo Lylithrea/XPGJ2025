@@ -122,3 +122,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   instrumentPrefab: {fileID: 4565895277961245867, guid: ba61553b120846841bdfcd1e96700dcb, type: 3}
+  type: 6
