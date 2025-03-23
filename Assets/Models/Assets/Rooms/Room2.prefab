@@ -271,7 +271,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6897405810076810691}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -324,7 +324,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -372,7 +372,7 @@ Transform:
   m_GameObject: {fileID: 7578225150035936736}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 117.88437, y: 0.50000024, z: 90.73272}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 50, y: 1, z: 50}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -475,11 +475,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomDoors:
   - {fileID: 6164572069087108390}
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 1238644528495576783}
-  enemySpawners: []
-  instrumentPositions: []
+  enemySpawners:
+  - {fileID: 7372846808841169655}
+  - {fileID: 1939560438524680798}
+  instrumentPositions:
+  - {fileID: 4529818440189869569}
+  - {fileID: 4863501379776875692}
   activeRoom: 0
   completed: 0
 --- !u!1 &8889357894417554982
@@ -532,7 +534,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8889357894417554982}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -585,7 +587,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1049,6 +1051,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 527393648866456698, guid: 614a60ebf1fe15b4eb6142b89cea5fe9, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1836dd26948eb3f4685c8ea409c67366, type: 2}
     - target: {fileID: 1220440719652829167, guid: 614a60ebf1fe15b4eb6142b89cea5fe9, type: 3}
       propertyPath: m_Name
       value: Door

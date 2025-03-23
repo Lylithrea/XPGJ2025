@@ -15,12 +15,13 @@ public class RoomManager : MonoBehaviour
     [Button]
     public void StartRoom()
     {
+        if (activeRoom || completed) return;
         activeRoom = true;
         
         //doors should not trigger anymore after initialize trigger
         foreach (Room_Door door in roomDoors)
         {
-            door.gameObject.SetActive(false);
+            door.ToggleDoor(true);
         }
 
         foreach (Room_Spawner spawner in enemySpawners)
@@ -33,6 +34,14 @@ public class RoomManager : MonoBehaviour
             instrument.GenerateInstrument();
         }
         
+    }
+
+    public void CompleteRoom()
+    {
+        foreach (Room_Door door in roomDoors)
+        {
+            door.ToggleDoor(false);
+        }
     }
     
     

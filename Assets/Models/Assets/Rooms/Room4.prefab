@@ -141,7 +141,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5231292107658802930}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -194,7 +194,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -242,7 +242,7 @@ Transform:
   m_GameObject: {fileID: 7899302612718513842}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 239.34995, y: 0.50000024, z: 89.60393}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 50, y: 1, z: 50}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -344,11 +344,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomDoors:
   - {fileID: 5452466963204649853}
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 8314786476121630445}
-  enemySpawners: []
-  instrumentPositions: []
+  enemySpawners:
+  - {fileID: 3976046282327266389}
+  - {fileID: 5559856152964097868}
+  instrumentPositions:
+  - {fileID: 4668758357723456930}
   activeRoom: 0
   completed: 0
 --- !u!1 &8250198362961966643
@@ -401,7 +402,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8250198362961966643}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -454,7 +455,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
