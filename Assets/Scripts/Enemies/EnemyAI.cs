@@ -6,6 +6,14 @@ public class EnemyAI : MonoBehaviour
 {
     public GameObject player;
 
+    public enum AiType
+    {
+        Melee,
+        Ranged
+    }
+
+    public AiType Type = AiType.Melee;
+
     public enum AiState
     {
         Aggro,
@@ -19,6 +27,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float m_AttackSpeed = 1;
     [SerializeField] private float m_AttackRange = 1;
     [SerializeField] private NavMeshAgent m_Agent;
+    [SerializeField] private Animator m_Animator;
 
     private float attackTimer = 0;
 
@@ -31,6 +40,11 @@ public class EnemyAI : MonoBehaviour
         }
         State = AiState.Aggro;
         m_Agent.speed = m_Speed;
+        if(m_Animator == null)
+        {
+            m_Animator = GetComponent<Animator>();
+        }
+        m_Animator.SetBool("Melee", Type == AiType.Melee);
     }
 
     // Update is called once per frame
@@ -67,6 +81,7 @@ public class EnemyAI : MonoBehaviour
 
     protected virtual void AttackPlayer()
     {
+        m_Animator.SetTrigger("Attack");
         attackTimer += Time.deltaTime;
 
         if (attackTimer >= 1 / m_AttackSpeed)
