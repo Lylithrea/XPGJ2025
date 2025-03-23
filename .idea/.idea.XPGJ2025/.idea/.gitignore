@@ -1,11 +1,11 @@
-# Default ignored files
+﻿# Default ignored files
 /shelf/
 /workspace.xml
 # Rider ignored files
-/modules.xml
-/.idea.XPGJ2025.iml
-/contentModel.xml
 /projectSettingsUpdater.xml
+/.idea.XPGJ2025.iml
+/modules.xml
+/contentModel.xml
 # Editor-based HTTP Client requests
 /httpRequests/
 # Datasource local storage ignored files
