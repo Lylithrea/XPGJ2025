@@ -23,6 +23,9 @@ public class PlayerManager : Singleton<PlayerManager>
 
     private CharacterController controller;
 
+    public bool isDead = false;
+    
+
     private void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -31,6 +34,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
     private void Update()
     {
+        if (isDead) return;
         if (!canDash)
         {
             if (dashTimer < dashDurationTime)
@@ -94,6 +98,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
     private void OnTriggerEnter(Collider other)
     {
+        if (isDead) return;
         if (!other.isTrigger)
         {
             return;
@@ -122,8 +127,20 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public void Damage(int amount)
     {
+        if (isDead) return;
         health -= amount;
+        
         UIManager.Instance.SetHealth(health);
+        if (health <= 0)
+        {
+            Gameover();
+        }
+    }
+
+    public void Gameover()
+    {
+        HighScoreManager.instance.SetScore();
+        isDead = true;
     }
 
     public void ResetPosition()
