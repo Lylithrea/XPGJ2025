@@ -114,18 +114,37 @@ public class PG_AdvGenerator : MonoBehaviour
     [Button]
     public void RemoveTiles()
     {
-        foreach (GameObject tile in generatedTiles)
+        if (UnityEditor.EditorApplication.isPlaying)
         {
-            DestroyImmediate(tile);
+            foreach (GameObject tile in generatedTiles)
+            {
+                Destroy(tile);
+            }
+            foreach (KeyValuePair<Vector3, GameObject> tile in newGeneratedTiles)
+            {
+                Destroy(tile.Value);
+            }
+            foreach (Transform child in this.transform)
+            {
+                Destroy(child.gameObject);
+            }
         }
-        foreach (KeyValuePair<Vector3, GameObject> tile in newGeneratedTiles)
+        else
         {
-            DestroyImmediate(tile.Value);
+            foreach (GameObject tile in generatedTiles)
+            {
+                DestroyImmediate(tile);
+            }
+            foreach (KeyValuePair<Vector3, GameObject> tile in newGeneratedTiles)
+            {
+                DestroyImmediate(tile.Value);
+            }
+            foreach (Transform child in this.transform)
+            {
+                DestroyImmediate(child.gameObject);
+            }
         }
-        foreach (Transform child in this.transform)
-        {
-            DestroyImmediate(child.gameObject);
-        }
+
         generatedTiles.Clear();
         uncompletedTiles.Clear();
         lowestPossibilitiesTile.Clear();
