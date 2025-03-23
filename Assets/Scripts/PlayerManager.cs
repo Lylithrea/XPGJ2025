@@ -12,6 +12,8 @@ public class PlayerManager : Singleton<PlayerManager>
     [SerializeField] private float dashDurationTime = 0.25f;
     [SerializeField] private float turnSmoothing = 30;
 
+    public Animator playerAnimator;
+
     public Vector3 faceDirection;
 
     private float dashTimer;
@@ -77,6 +79,7 @@ public class PlayerManager : Singleton<PlayerManager>
         var vertical = Input.GetAxisRaw("Vertical");
 
         var move = new Vector3(horizontal, 0, vertical).normalized;
+        playerAnimator.SetFloat("speed", move.magnitude);
         controller.Move(move * (Time.deltaTime * walkSpeed));
 
         if (move != Vector3.zero)

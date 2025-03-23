@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7896b8d00a53f46488eedb2d9a194a6d, type: 3}
+  m_Name: Room 6
+  m_EditorClassIdentifier: 
+  totalRarity: 0
+  percentage: 0
+  rarity: 1
+  tile: {fileID: 624968579646252013, guid: c12cfff93f3a0ea498b4b7520c005f41, type: 3}
+  sideA: 4
+  sideB: 5
+  sideC: 4
+  sideD: 5
