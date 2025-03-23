@@ -9,9 +9,7 @@ public class MusicTester : MonoBehaviour {
     [SerializeField] private FmodMusicPlayer fmodMusicPlayer;
     [SerializeField] private FmodEventTrigger endSequenceSound;
     [SerializeField] private float gameContinuesAfter = 13f;
-
-    public bool flute = false;
-    public bool Organ_Base = false;
+    
 
     void Start() {
         if (instance == null) {
@@ -22,14 +20,29 @@ public class MusicTester : MonoBehaviour {
         }
     }
 
-    private void Update() {
-        if (flute) {
-            fmodMusicPlayer.ChangeParameter("Flute", 1);
-        } else fmodMusicPlayer.ChangeParameter("Flute", 0);
-        if (Organ_Base) {
-            fmodMusicPlayer.ChangeParameter("Organ Base", 1);
-        } else fmodMusicPlayer.ChangeParameter("Organ Base", 0);
+    public void ChangeInstrument(InstrumentType type, bool active)
+    {
+        Debug.Log("Changing Instrument "  + type.ToString() + " to: " + active);
+        switch (type)
+        {
+            case InstrumentType.flute:
+                fmodMusicPlayer.ChangeParameter("Flute", active ? 1 : 0);
+                break;
+            case InstrumentType.cowbell:
+                fmodMusicPlayer.ChangeParameter("CowBell", active ? 1 : 0);
+                break;
+            case InstrumentType.chordstab:
+                fmodMusicPlayer.ChangeParameter("Stab", active ? 1 : 0);
+                break;
+            case InstrumentType.organbass:
+                fmodMusicPlayer.ChangeParameter("OranBass", active ? 1 : 0);
+                break;
+            default:
+                Debug.LogWarning("Unknown instrument type");
+                break;
+        }
     }
+
 
 
     [ContextMenu("Play End Sequence")]

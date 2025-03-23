@@ -11,7 +11,7 @@ public class Pickupable : MonoBehaviour
 
 public enum InstrumentType
 {
-    kick,
+    fx,
     percussion,
     organbass,
     chordstab,

@@ -960,7 +960,7 @@ MonoBehaviour:
       Data2: 1079389753
       Data3: 1697739918
       Data4: 1165637385
-    Path: event:/Music
+    Path: event:/Player/Stinger
   musicKicked:
     m_PersistentCalls:
       m_Calls: []
@@ -977,8 +977,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fmodMusicPlayer: {fileID: 757825889}
-  flute: 0
-  Organ_Base: 0
+  endSequenceSound: {fileID: 0}
+  gameContinuesAfter: 13
 --- !u!4 &757825891
 Transform:
   m_ObjectHideFlags: 0
@@ -1550,6 +1550,10 @@ MonoBehaviour:
   - {fileID: 9022696662916596683, guid: 6ec500a0921046445af34e669ea62582, type: 3}
   - {fileID: 4192179620026693120, guid: 6350e30d17b85fa4e9639b4717a7cfb2, type: 3}
   - {fileID: 6636380205840013718, guid: 65badc8592c19c446829c1a1465a3905, type: 3}
+  - {fileID: 6636380205840013718, guid: d1e83dcf63f3309458cf83b9dd7f60ca, type: 3}
+  - {fileID: 6636380205840013718, guid: 3cd84d5c5ab03e34fa770ca40dabe869, type: 3}
+  - {fileID: 6636380205840013718, guid: aba13f39e067c574f8a299f0983a0c61, type: 3}
+  - {fileID: 6636380205840013718, guid: 71a5ddd73f21d5f498a989124a128196, type: 3}
 --- !u!4 &1081450996
 Transform:
   m_ObjectHideFlags: 0

@@ -9,8 +9,6 @@ public class InstrumentManager : MonoBehaviour {
     [SerializeField]
     private FmodMusicPlayer fmodMusicPlayer;
 
-    public bool flute = false;
-    public bool Organ_Base = false;
 
     void Start() {
         if (instance == null) {
@@ -39,18 +37,23 @@ public class InstrumentManager : MonoBehaviour {
             case InstrumentType.organbass:
                 fmodMusicPlayer.ChangeParameter("OranBass", active ? 1 : 0);
                 break;
+            case InstrumentType.chordpad:
+                fmodMusicPlayer.ChangeParameter("Pad", active ? 1 : 0);
+                break;
+            case InstrumentType.fx:
+                fmodMusicPlayer.ChangeParameter("FX", active ? 1 : 0);
+                break;
+            case InstrumentType.percussion:
+                fmodMusicPlayer.ChangeParameter("Percussion", active ? 1 : 0);
+                break;
+            case InstrumentType.vocalsample:
+                fmodMusicPlayer.ChangeParameter("Vocal", active ? 1 : 0);
+                break;
             default:
                 Debug.LogWarning("Unknown instrument type");
                 break;
         }
     }
     
-    private void Update() {
-        if (flute) {
-            fmodMusicPlayer.ChangeParameter("Flute", 1);
-        } else fmodMusicPlayer.ChangeParameter("Flute", 0);
-        if (Organ_Base) {
-            fmodMusicPlayer.ChangeParameter("Organ Base", 1);
-        } else fmodMusicPlayer.ChangeParameter("Organ Base", 0);
-    }
+
 }
