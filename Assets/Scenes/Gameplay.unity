@@ -1995,6 +1995,7 @@ MonoBehaviour:
   - {fileID: 6636380205840013718, guid: 3cd84d5c5ab03e34fa770ca40dabe869, type: 3}
   - {fileID: 6636380205840013718, guid: aba13f39e067c574f8a299f0983a0c61, type: 3}
   - {fileID: 6636380205840013718, guid: 71a5ddd73f21d5f498a989124a128196, type: 3}
+  visualDemo: 1
 --- !u!4 &1081450996
 Transform:
   m_ObjectHideFlags: 0
@@ -3131,6 +3132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   instruments: []
+  CineMachineCamera: {fileID: 0}
 --- !u!1 &1934676630
 GameObject:
   m_ObjectHideFlags: 0
@@ -3387,7 +3389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highScoreText: {fileID: 2044451077}
-  highscorePanel: {fileID: 0}
+  highscorePanel: {fileID: 1571960193}
 --- !u!1001 &2023083697
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -28,6 +28,8 @@ public class GameDungeonManager : MonoBehaviour
     public List<GameObject> instruments = new List<GameObject>();
     private List<GameObject> availableInstruments = new List<GameObject>();
 
+    public bool visualDemo = false;
+
     public void Awake()
     {
         if (Instance == null)

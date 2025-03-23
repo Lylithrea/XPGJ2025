@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fad923def48f6c418caed02ed4b1a73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawner: {fileID: 0}
+  spawner: {fileID: 11400000, guid: ced5db16f49d60441964dcf00f194771, type: 2}
 --- !u!1 &5231292107658802930
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,6 +353,8 @@ MonoBehaviour:
   - {fileID: 4668758357723456930}
   activeRoom: 0
   completed: 0
+  enemiesSpawned: 0
+  enemiesKilled: 0
 --- !u!114 &8808067858567053558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -591,7 +593,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fad923def48f6c418caed02ed4b1a73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawner: {fileID: 0}
+  spawner: {fileID: 11400000, guid: ced5db16f49d60441964dcf00f194771, type: 2}
 --- !u!1001 &611416455027515845
 PrefabInstance:
   m_ObjectHideFlags: 0

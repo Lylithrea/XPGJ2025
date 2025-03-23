@@ -17,6 +17,7 @@ public class Projectile : MonoBehaviour
         if (other.gameObject.tag == "Enemy")
         {
             other.gameObject.GetComponent<EnemyAI>().TakeDamage(1);
+            
         }
         
         
