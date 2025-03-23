@@ -7,4 +7,9 @@ public class MeleeEnemy : EnemyAI
         base.AttackPlayer();
         
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        
+    }
 }
