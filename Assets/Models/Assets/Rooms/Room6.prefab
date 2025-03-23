@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6871086216044705423}
   - component: {fileID: 1030827374163138303}
   - component: {fileID: 5130995552656060434}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Room6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 309be36fdaf2be948baf7f2e790c6d2a, type: 2}
+  - {fileID: 2100000, guid: 13c0743b3976ab04783bfe23bb7aa288, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
