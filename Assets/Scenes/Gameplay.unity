@@ -935,6 +935,7 @@ GameObject:
   - component: {fileID: 757825891}
   - component: {fileID: 757825890}
   - component: {fileID: 757825889}
+  - component: {fileID: 757825892}
   m_Layer: 0
   m_Name: StartOnPlay
   m_TagString: Untagged
@@ -977,8 +978,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fmodMusicPlayer: {fileID: 757825889}
-  endSequenceSound: {fileID: 0}
-  gameContinuesAfter: 13
+  endSequenceSound: {fileID: 757825892}
+  explosionTime: 7
+  delayTime: 5
 --- !u!4 &757825891
 Transform:
   m_ObjectHideFlags: 0
@@ -994,6 +996,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &757825892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 757825888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50aa8e57a1d9fc4448ea0592864f53f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fmodEvent:
+    Guid:
+      Data1: 470784377
+      Data2: 1275340734
+      Data3: -1300399444
+      Data4: 1547279094
+    Path: event:/Player/Ultimate
 --- !u!1 &769424448
 GameObject:
   m_ObjectHideFlags: 0
@@ -1476,20 +1497,20 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
+      inSlope: 0.024985524
+      outSlope: 0.024985524
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.5923077
     - serializedVersion: 3
       time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
+      value: 0.1
+      inSlope: -0.089826204
+      outSlope: -0.089826204
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.15769231
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -1499,19 +1520,19 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
-      tangentMode: 34
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
@@ -1523,9 +1544,9 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
@@ -1533,8 +1554,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: 1
+      outSlope: 1
       tangentMode: 34
       weightedMode: 0
       inWeight: 0

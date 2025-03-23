@@ -14,7 +14,8 @@ public class AttackManager : Singleton<AttackManager>
         () => Input.GetKeyDown(KeyCode.Q),
         () => Input.GetKeyDown(KeyCode.E),
         () => Input.GetKeyDown(KeyCode.R),
-        () => Input.GetMouseButtonDown(1)
+        () => Input.GetMouseButtonDown(1),
+        () => Input.GetKeyDown(KeyCode.G)
     };
 
     void Start()
@@ -25,11 +26,15 @@ public class AttackManager : Singleton<AttackManager>
     // Update is called once per frame
     void Update()
     {
+        if (triggers[4]())
+        {
+            MusicTester.instance.EndSequence();
+            return;
+        }
         var ui = UIManager.Instance;
         for (var i = 0; i < instruments.Count; i++)
         {
-            if (IsSlotAvailable(i)
-                && triggers[i]())
+            if (IsSlotAvailable(i) && triggers[i]())
             {
                 instruments[i].Use();
             }
@@ -57,4 +62,14 @@ public class AttackManager : Singleton<AttackManager>
         instruments.Add(instrument);
         UIManager.Instance.RegisterInstrument();
     }
+
+    public void RemoveAllInstruments()
+    {
+        foreach (var instrument in instruments)
+        {
+            UIManager.Instance.UnregisterInstrument();
+        }
+        instruments.Clear();
+    }
+    
 }
