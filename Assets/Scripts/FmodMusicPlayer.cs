@@ -27,16 +27,16 @@ public class FmodMusicPlayer : MonoBehaviour {
     private EventInstance musicInstance;
     #endregion
 
-    public UnityEvent musicKicked = new();
+    public UnityEvent<float> musicKicked = new();
     private int lastBeat = -1;
     private float nextBeatTime = -1;
 
     private void Update() {
         if (lastBeat != timelineInfo.currentMusicBeat) {
             lastBeat = timelineInfo.currentMusicBeat;
-            musicKicked.Invoke();
             float secondsPerBeat = 60f / timelineInfo.tempo;
             nextBeatTime = Time.time + secondsPerBeat;
+            musicKicked.Invoke(nextBeatTime);
         }
     }
 
