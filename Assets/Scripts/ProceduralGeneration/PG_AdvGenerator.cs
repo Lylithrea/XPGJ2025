@@ -114,8 +114,7 @@ public class PG_AdvGenerator : MonoBehaviour
     [Button]
     public void RemoveTiles()
     {
-        if (UnityEditor.EditorApplication.isPlaying)
-        {
+
             foreach (GameObject tile in generatedTiles)
             {
                 Destroy(tile);
@@ -128,22 +127,7 @@ public class PG_AdvGenerator : MonoBehaviour
             {
                 Destroy(child.gameObject);
             }
-        }
-        else
-        {
-            foreach (GameObject tile in generatedTiles)
-            {
-                DestroyImmediate(tile);
-            }
-            foreach (KeyValuePair<Vector3, GameObject> tile in newGeneratedTiles)
-            {
-                DestroyImmediate(tile.Value);
-            }
-            foreach (Transform child in this.transform)
-            {
-                DestroyImmediate(child.gameObject);
-            }
-        }
+
 
         generatedTiles.Clear();
         uncompletedTiles.Clear();
